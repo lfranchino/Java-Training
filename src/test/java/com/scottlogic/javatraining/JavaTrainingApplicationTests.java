@@ -23,15 +23,15 @@ class JavaTrainingApplicationTests {
 	@BeforeEach
 	void init() {
 		matcher = new Matcher();
-		buyOrder1 = new BuyOrder("1", 1, 30, "buy");
-		buyOrder2 = new BuyOrder("2", 3, 40, "buy");
-		buyOrder3 = new BuyOrder("3", 2, 30, "buy");
-		buyOrder4 = new BuyOrder("4", 2, 30, "buy");
+		buyOrder1 = new BuyOrder("1", 1, 30);
+		buyOrder2 = new BuyOrder("2", 3, 40);
+		buyOrder3 = new BuyOrder("3", 2, 30);
+		buyOrder4 = new BuyOrder("4", 2, 30);
 
-		sellOrder1 = new SellOrder("5", 1, 10, "sell");
-		sellOrder2 = new SellOrder("6", 3, 50, "sell");
-		sellOrder3 = new SellOrder("7", 2, 80, "sell");
-		sellOrder4 = new SellOrder("8", 4, 30, "sell");
+		sellOrder1 = new SellOrder("5", 1, 10);
+		sellOrder2 = new SellOrder("6", 3, 50);
+		sellOrder3 = new SellOrder("7", 2, 80);
+		sellOrder4 = new SellOrder("8", 4, 30);
 	}
 
 	@Test
@@ -71,17 +71,17 @@ class JavaTrainingApplicationTests {
 		matcher.matchNewOrder(buyOrder3);
 		matcher.matchNewOrder(buyOrder4);
 
-		assertEquals(matcher.sellList.get(0), new SellOrder("8", 4, 30, "sell"));
-		assertEquals(matcher.sellList.get(1), new SellOrder("6", 3, 10, "sell"));
-		assertEquals(matcher.sellList.get(2), new SellOrder("7", 2, 20, "sell"));
+		assertEquals(matcher.sellList.get(0), new SellOrder("8", 4, 30));
+		assertEquals(matcher.sellList.get(1), new SellOrder("6", 3, 10));
+		assertEquals(matcher.sellList.get(2), new SellOrder("7", 2, 20));
 
-		assertEquals(matcher.buyList.get(0), new BuyOrder("1", 1, 20, "buy"));
+		assertEquals(matcher.buyList.get(0), new BuyOrder("1", 1, 20));
 	}
 
 	@Test
 	@DisplayName("Orders are accumulated correctly")
 	void Test3() {
-		BuyOrder buyOrder5 = new BuyOrder("9", 1, 40, "buy");
+		BuyOrder buyOrder5 = new BuyOrder("9", 1, 40);
 
 		matcher.matchNewOrder(sellOrder1);
 		matcher.matchNewOrder(sellOrder2);
@@ -111,7 +111,7 @@ class JavaTrainingApplicationTests {
 	@Test
 	@DisplayName("Orders aggregated correctly")
 	void test4() {
-		BuyOrder buyOrder5 = new BuyOrder("9", 1, 40, "buy");
+		BuyOrder buyOrder5 = new BuyOrder("9", 1, 40);
 
 		matcher.matchNewOrder(sellOrder1);
 		matcher.matchNewOrder(sellOrder2);
@@ -144,7 +144,8 @@ class JavaTrainingApplicationTests {
 		matcher.matchNewOrder(sellOrder1);
 		matcher.matchNewOrder(buyOrder1);
 
-		assertEquals(matcher.pairedOrders.get(0).buyOrder, new BuyOrder("1", 1, 30, "buy"));
-		assertEquals(matcher.pairedOrders.get(0).sellOrder, new SellOrder("5", 1, 10, "sell"));
+		assertEquals(matcher.pairedOrders.get(0).buyOrder, new BuyOrder("1", 1, 30));
+		assertEquals(matcher.pairedOrders.get(0).sellOrder, new SellOrder("5", 1, 10));
 	}
+
 }

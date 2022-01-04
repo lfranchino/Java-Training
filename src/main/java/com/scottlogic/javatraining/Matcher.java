@@ -67,8 +67,8 @@ public class Matcher {
     }
 
     public void makeTrade(BuyOrder buyOrder, SellOrder sellOrder) {
-        BuyOrder buyCopy = new BuyOrder(buyOrder.account, buyOrder.price, buyOrder.quantity, buyOrder.action);
-        SellOrder sellCopy = new SellOrder(sellOrder.account, sellOrder.price, sellOrder.quantity, sellOrder.action);
+        BuyOrder buyCopy = new BuyOrder(buyOrder.account, buyOrder.price, buyOrder.quantity);
+        SellOrder sellCopy = new SellOrder(sellOrder.account, sellOrder.price, sellOrder.quantity);
         pairedOrders.add(0 ,new OrderPair(buyCopy, sellCopy));
         int minTrade = Math.min(buyOrder.quantity, sellOrder.quantity);
         buyOrder.setQuantity(buyOrder.quantity - minTrade);

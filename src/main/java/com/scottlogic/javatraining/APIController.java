@@ -1,10 +1,20 @@
 package com.scottlogic.javatraining;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.Date;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+
 
 @RestController
 public class APIController {
@@ -51,5 +61,37 @@ public class APIController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createBuyOrder(@RequestBody BuyOrder order) {
         matcher.matchNewOrder(order);
+    }
+
+    @PostMapping("/user")
+    public User login(@RequestParam("username") String username, @RequestParam("password") String password) {
+
+        String token = getJWTToken(username, password);
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setToken(token);
+        return user;
+    }
+
+    private String getJWTToken(String username, String password) {
+        String secretKey = "mySecretKey";
+        List<GrantedAuthority> grantedAuthorities = AuthorityUtils
+                .commaSeparatedStringToAuthorityList("ROLE_USER");
+
+        String token = Jwts
+                .builder()
+                .setId("softtekJWT")
+                .setSubject(username + password)
+                .claim("authorities",
+                        grantedAuthorities.stream()
+                                .map(GrantedAuthority::getAuthority)
+                                .collect(Collectors.toList()))
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 600000))
+                .signWith(SignatureAlgorithm.HS512,
+                        secretKey.getBytes()).compact();
+
+        return "Bearer " + token;
     }
 }
