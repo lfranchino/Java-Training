@@ -1,4 +1,4 @@
-package com.scottlogic.javatraining;
+package com.scottlogic.javatraining.classes;
 
 public class SellAggregate extends AggregateOrder implements Comparable<SellAggregate> {
 

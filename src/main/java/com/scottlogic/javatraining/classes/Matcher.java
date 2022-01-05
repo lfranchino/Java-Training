@@ -1,14 +1,14 @@
-package com.scottlogic.javatraining;
+package com.scottlogic.javatraining.classes;
 import java.util.*;
 
 public class Matcher {
-    ArrayList<BuyOrder> buyList = new ArrayList<>();
-    ArrayList<SellOrder> sellList = new ArrayList<>();
-    ArrayList<OrderPair> pairedOrders = new ArrayList<>();
-    ArrayList<BuyAggregate> buyAggregates = new ArrayList<>();
-    ArrayList<SellAggregate> sellAggregates = new ArrayList<>();
-    ArrayList<BuyAggregate> accumulativeBuys = new ArrayList<>();
-    ArrayList<SellAggregate> accumulativeSells = new ArrayList<>();
+    public ArrayList<BuyOrder> buyList = new ArrayList<>();
+    public ArrayList<SellOrder> sellList = new ArrayList<>();
+    public ArrayList<OrderPair> pairedOrders = new ArrayList<>();
+    public ArrayList<BuyAggregate> buyAggregates = new ArrayList<>();
+    public ArrayList<SellAggregate> sellAggregates = new ArrayList<>();
+    public ArrayList<BuyAggregate> accumulativeBuys = new ArrayList<>();
+    public ArrayList<SellAggregate> accumulativeSells = new ArrayList<>();
 
     public void storeOrder(Order order) {
         if (order instanceof SellOrder) {

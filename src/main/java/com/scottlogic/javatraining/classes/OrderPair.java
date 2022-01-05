@@ -1,9 +1,9 @@
-package com.scottlogic.javatraining;
+package com.scottlogic.javatraining.classes;
 
 public class OrderPair {
 
-    BuyOrder buyOrder;
-    SellOrder sellOrder;
+    public BuyOrder buyOrder;
+    public SellOrder sellOrder;
 
     public OrderPair(BuyOrder buyOrder, SellOrder sellOrder) {
         this.buyOrder = buyOrder;

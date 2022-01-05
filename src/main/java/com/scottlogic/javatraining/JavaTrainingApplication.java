@@ -1,5 +1,6 @@
 package com.scottlogic.javatraining;
 
+import com.scottlogic.javatraining.classes.User;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Configuration;

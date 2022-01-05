@@ -1,6 +1,12 @@
 package com.scottlogic.javatraining;
 
+
+import com.scottlogic.javatraining.classes.*;
+import com.scottlogic.javatraining.dao.DAO;
+import com.scottlogic.javatraining.dao.UserJdbcDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +26,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class APIController {
 
     Matcher matcher = new Matcher();
+
+    @Autowired
+    JdbcTemplate jdbcTemplate = new JdbcTemplate();
+
+    @Autowired
+    UserJdbcDAO UserDao = new UserJdbcDAO(jdbcTemplate);
 
     @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
@@ -65,7 +77,7 @@ public class APIController {
 
     @PostMapping("/user")
     public User login(@RequestParam("username") String username, @RequestParam("password") String password) {
-
+        System.out.println(UserDao.list());
         String token = getJWTToken(username, password);
         User user = new User();
         user.setUsername(username);

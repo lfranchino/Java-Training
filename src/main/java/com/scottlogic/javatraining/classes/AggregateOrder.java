@@ -1,9 +1,9 @@
-package com.scottlogic.javatraining;
+package com.scottlogic.javatraining.classes;
 
 public abstract class AggregateOrder {
 
-    int price;
-    int quantity;
+    public int price;
+    public int quantity;
 
     public AggregateOrder(int price, int quantity) {
         this.price = price;

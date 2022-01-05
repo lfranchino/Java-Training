@@ -1,4 +1,4 @@
-package com.scottlogic.javatraining;
+package com.scottlogic.javatraining.classes;
 
 public class SellOrder extends Order implements Comparable<SellOrder> {
 

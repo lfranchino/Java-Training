@@ -1,5 +1,7 @@
 package com.scottlogic.javatraining;
 
+import com.scottlogic.javatraining.classes.*;
+
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
