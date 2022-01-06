@@ -2,6 +2,14 @@ package com.scottlogic.javatraining.classes;
 
 public class User {
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User() {
+    }
+
     public String username;
     public String password;
     public String token;

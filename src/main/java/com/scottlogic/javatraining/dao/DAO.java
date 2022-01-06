@@ -1,5 +1,7 @@
 package com.scottlogic.javatraining.dao;
 
+import com.scottlogic.javatraining.classes.User;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -7,11 +9,9 @@ public interface DAO<T> {
 
     List<T> list();
 
-    void create(T t);
+    void create(String username, String password);
 
-    Optional<T> get(int id);
 
-    void update(T t, int id);
+    Optional<User> get(String username);
 
-    void delete(int id);
 }

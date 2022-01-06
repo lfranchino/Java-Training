@@ -25,7 +25,6 @@ dependencies {
     implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
     implementation 'com.h2database:h2:2.0.204'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.2'
-    implementation 'be.atbash.keys:keys-server-parent:0.5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

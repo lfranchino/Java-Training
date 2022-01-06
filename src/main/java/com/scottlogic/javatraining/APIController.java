@@ -9,13 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.security.SecureRandom;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.Date;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -25,7 +24,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @RestController
 public class APIController {
 
+    final int WORKLOAD_STRENGTH = 10;
+
     Matcher matcher = new Matcher();
+
+    BCryptPasswordEncoder bCryptPasswordEncoder =
+            new BCryptPasswordEncoder(WORKLOAD_STRENGTH, new SecureRandom());
 
     @Autowired
     JdbcTemplate jdbcTemplate = new JdbcTemplate();
@@ -75,15 +79,36 @@ public class APIController {
         matcher.matchNewOrder(order);
     }
 
-    @PostMapping("/user")
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
     public User login(@RequestParam("username") String username, @RequestParam("password") String password) {
-        System.out.println(UserDao.list());
+        Optional<User> optionalUser = UserDao.get(username);
+        if (optionalUser.isEmpty()) {
+            System.out.println("User does not exist");
+            return null;
+        }
+        if (!bCryptPasswordEncoder.matches(password, optionalUser.get().password)) {
+            System.out.println("Username or password is incorrect");
+            return null;
+        }
         String token = getJWTToken(username, password);
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.setToken(token);
         return user;
+    }
+
+    @PostMapping("/createuser")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createUser(@RequestParam("username") String username, @RequestParam("password") String password) {
+        Optional<User> optionalUser = UserDao.get(username);
+        if (optionalUser.isEmpty()) {
+            String encodedPassword = bCryptPasswordEncoder.encode(password);
+            UserDao.create(username, encodedPassword);
+            return;
+        }
+        System.out.println("User already exists");
     }
 
     private String getJWTToken(String username, String password) {
@@ -106,4 +131,5 @@ public class APIController {
 
         return "Bearer " + token;
     }
+
 }
